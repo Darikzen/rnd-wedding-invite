@@ -1,2 +1,4 @@
 # Rachel and Darii wedding invite
-An invitation to Rachel and Darii's wedding for everyone willing to join!
+https://darikzen.github.io/rnd-wedding-invite/
+
+This is an invite page to Rachel and Darii's wedding for everyone willing to join!
