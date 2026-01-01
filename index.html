@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rachel & Darii - The Wedding</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        'paper': '#F9F8F6',
+                        'ink': '#2D2D2D',
+                        'warm-grey': '#8C8C8C',
+                        'accent': '#A67B5B',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        /* Custom selection color */
+        ::selection { background: #E6DCD3; color: #2D2D2D; }
+        
+        /* Fade in animation */
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body class="bg-gray-100 text-ink font-sans antialiased min-h-screen flex flex-col items-center justify-center py-4 sm:py-8 px-4 relative">
+
+    <!-- Ambient Background (Desktop Pattern/Blur) -->
+    <div class="fixed inset-0 z-0 overflow-hidden">
+        <img 
+            src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop" 
+            class="w-full h-full object-cover blur-2xl opacity-60 scale-110"
+            alt="Background ambience"
+        >
+        <div class="absolute inset-0 bg-white/40"></div>
+    </div>
+
+    <!-- Main Card -->
+    <main class="relative z-10 w-full max-w-md bg-paper shadow-2xl rounded-2xl overflow-hidden fade-in-up my-auto border border-white/50">
+        
+        <!-- Hero Image Container (Inset for "Photo" look) -->
+        <div class="p-4 pb-0">
+            <div class="relative w-full aspect-[4/5] sm:aspect-[3/2] overflow-hidden rounded-2xl bg-warm-grey shadow-inner">
+                <!-- Warm, candid couple photo placeholder -->
+                <img 
+                    src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop" 
+                    alt="A warm candid moment" 
+                    class="w-full h-full object-cover opacity-95 hover:scale-105 transition-transform duration-700 ease-in-out"
+                >
+                <!-- Subtle vignette -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
+            </div>
+        </div>
+
+        <div class="px-8 py-8 space-y-8">
+            
+            <!-- Header -->
+            <header class="text-center space-y-2 fade-in-up delay-100">
+                <p class="text-xs tracking-[0.2em] uppercase text-warm-grey font-medium">The Wedding Of</p>
+                <!-- Responsive text size ensures single line on mobile without breaking -->
+                <h1 class="font-serif text-3xl sm:text-4xl italic text-ink leading-tight">
+                    Rachel <span class="text-2xl sm:text-3xl not-italic text-accent">&</span> Darii
+                </h1>
+            </header>
+
+            <!-- The Letter -->
+            <article class="prose prose-stone text-center mx-auto fade-in-up delay-200">
+                <p class="text-lg leading-relaxed text-ink/80 font-serif italic">
+                    "We met under the lights of a theater group in Phnom Penh, setting the stage for a lifetime of love."
+                </p>
+                <p class="mt-4 text-sm leading-7 text-gray-600 font-light max-w-xs mx-auto">
+                    Though our scenery has changed, our cast remains the same. We would be honored to have you join us for this intimate online ceremony as we begin our next act together.
+                </p>
+            </article>
+
+            <!-- The Details -->
+            <section class="space-y-6 fade-in-up delay-300">
+                <div class="border-t border-b border-stone-200 py-6">
+                    <div class="grid grid-cols-1 gap-8 text-center">
+                        
+                        <!-- When -->
+                        <div class="space-y-4">
+                            <!-- Official Time -->
+                            <div>
+                                <h3 class="font-serif text-xl text-ink">Saturday, Jan 3rd</h3>
+                                <div class="pt-2">
+                                    <p class="text-3xl font-serif">06:00 <span class="text-sm font-sans text-gray-400 align-top">AM</span></p>
+                                    <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Indochina Time (Phnom Penh)</p>
+                                </div>
+                            </div>
+
+                            <!-- Local Time Calculation -->
+                            <div id="local-time-container" class="hidden bg-white/50 rounded-lg p-3 border border-stone-100 mx-4 shadow-sm">
+                                <p class="text-xs text-accent font-medium mb-1">Your Local Time:</p>
+                                <p id="local-date" class="text-sm font-serif text-ink font-semibold"></p>
+                                <p id="local-time" class="text-lg text-ink"></p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline / Order of Events -->
+                        <div class="space-y-4">
+                            <h3 class="font-serif text-xl text-ink">The Schedule</h3>
+                            
+                            <div class="space-y-4 text-sm">
+                                <div>
+                                    <p class="font-medium text-ink">Act I: The Ceremony</p>
+                                    <p class="text-gray-500 italic">Held via Zoom</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                        <div class="w-full border-t border-stone-200"></div>
+                                    </div>
+                                    <div class="relative flex justify-center">
+                                        <span class="bg-paper px-2 text-xs text-gray-400 font-light">followed by</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-ink">Act II: Virtual Reception</p>
+                                    <p class="text-gray-500 italic px-4">Stay online to chat & toast with the couple immediately after vows.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions -->
+            <footer class="space-y-3 pb-4 fade-in-up delay-400">
+                
+                <!-- Primary Button: Ceremony -->
+                <a 
+                    href="https://app.acuityscheduling.com/schedule.php?owner=17450053&action=zoom&uniqueID=a8439baafa5d28c81ab1fefd45d6f3b5&ownerID=17450053&ref=email" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block w-full bg-ink text-white text-center py-4 px-6 rounded-lg font-medium tracking-wide hover:bg-stone-700 transition-all shadow-lg shadow-stone-300 hover:shadow-xl transform hover:-translate-y-0.5"
+                >
+                    Join Ceremony
+                </a>
+
+                <!-- Secondary Button: Reception -->
+                <a 
+                    href="https://zoom.us/j/placeholder-reception-link" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block w-full bg-white border border-stone-200 text-ink text-center py-3 px-6 rounded-lg text-sm font-medium tracking-wide hover:bg-stone-50 transition-colors flex items-center justify-center gap-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+                    Join Reception (Act II)
+                </a>
+
+                <!-- Utility Button: Calendar -->
+                <button 
+                    onclick="downloadICS()"
+                    class="block w-full text-warm-grey text-center py-2 px-6 text-xs font-medium uppercase tracking-widest hover:text-ink transition-colors"
+                >
+                    + Add to Calendar
+                </button>
+
+                <!-- Registry Section: Soft Card Design -->
+                <!-- Improved visibility for older relatives while maintaining elegance -->
+                <div class="mt-6 bg-white/80 rounded-xl p-5 border border-stone-100 shadow-sm text-center">
+                    
+                    <div class="flex justify-center mb-2 text-accent">
+                        <!-- Simple Gift Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+                    </div>
+
+                    <p class="text-ink font-serif italic text-lg mb-1">Registry</p>
+                    
+                    <p class="text-xs text-gray-500 mb-4 leading-relaxed max-w-[260px] mx-auto">
+                        Your presence is the only gift we need. However, if you wish to honor us with a gift:
+                    </p>
+                    
+                    <a 
+                        href="https://www.myregistry.com/giftlist/rachelanddarii" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="inline-block bg-paper border border-accent/20 text-accent font-medium text-sm py-2 px-6 rounded-full hover:bg-accent hover:text-white transition-all shadow-sm"
+                    >
+                        Browse Registry
+                    </a>
+                </div>
+
+            </footer>
+
+        </div>
+    </main>
+    
+    <!-- Footer Credit/Note -->
+    <div class="relative z-10 mt-8 text-white/60 text-xs font-light pb-8">
+        © 2026 Rachel & Darii
+    </div>
+
+    <script>
+        // Set the event time: Jan 3, 2026, 06:00:00 GMT+0700 (Indochina Time)
+        const eventDate = new Date('2026-01-03T06:00:00+07:00');
+
+        function displayLocalTime() {
+            if (typeof Intl !== 'object') return;
+
+            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            
+            // Format Date: e.g., "Friday, Jan 2"
+            const dateOptions = { weekday: 'long', month: 'short', day: 'numeric' };
+            const localDateString = new Intl.DateTimeFormat('en-US', dateOptions).format(eventDate);
+
+            // Format Time: e.g., "6:00 PM (EST)"
+            const timeOptions = { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' };
+            const localTimeString = new Intl.DateTimeFormat('en-US', timeOptions).format(eventDate);
+
+            document.getElementById('local-date').textContent = localDateString;
+            document.getElementById('local-time').textContent = localTimeString;
+            document.getElementById('local-time-container').classList.remove('hidden');
+        }
+
+        displayLocalTime();
+
+        function downloadICS() {
+            // Event spans 2 hours to include reception
+            const event = {
+                title: "Rachel & Darii Wedding + Reception",
+                description: "Join us for our online wedding ceremony, followed immediately by a virtual hangout.\n\nCeremony Link: https://app.acuityscheduling.com/schedule.php?owner=17450053&action=zoom&uniqueID=a8439baafa5d28c81ab1fefd45d6f3b5&ownerID=17450053&ref=email\n\nReception Link: See invitation for details.",
+                location: "Online (Zoom)",
+                start: "20260103T060000", 
+                end: "20260103T080000",   
+                timezone: "Asia/Phnom_Penh"
+            };
+
+            const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Rachel and Darii//Wedding Invitation//EN',
+                'CALSCALE:GREGORIAN',
+                'BEGIN:VEVENT',
+                `SUMMARY:${event.title}`,
+                `DESCRIPTION:${event.description}`,
+                `LOCATION:${event.location}`,
+                `DTSTART;TZID=${event.timezone}:${event.start}`,
+                `DTEND;TZID=${event.timezone}:${event.end}`,
+                'STATUS:CONFIRMED',
+                'SEQUENCE:0',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', 'rachel-and-darii-wedding.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
